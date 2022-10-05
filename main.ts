@@ -8,8 +8,33 @@ function enemigo_3 () {
 input.onButtonPressed(Button.A, function () {
     personaje.move(-1)
 })
+input.onGesture(Gesture.Shake, function () {
+	
+})
+input.onButtonPressed(Button.AB, function () {
+	
+})
 input.onButtonPressed(Button.B, function () {
     personaje.move(1)
+})
+input.onPinPressed(TouchPin.P1, function () {
+    for (let index = 0; index < 4; index++) {
+        basic.showLeds(`
+            . # . # .
+            # # # # #
+            # # # # #
+            . # # # .
+            . . # . .
+            `)
+        basic.clearScreen()
+        basic.showLeds(`
+            . . . . .
+            . . # . .
+            . # # # .
+            . . # . .
+            . . . . .
+            `)
+    }
 })
 function enemigos () {
     enemigo = game.createSprite(randint(0, 4), 0)
@@ -26,7 +51,6 @@ game.setScore(0)
 personaje = game.createSprite(2, 4)
 enemigos()
 enemigo_3()
-music.startMelody(music.builtInMelody(Melodies.JumpUp), MelodyOptions.Once)
 basic.forever(function () {
     if (enemigo_2.isTouching(personaje)) {
         basic.showIcon(IconNames.Sad)
@@ -36,6 +60,27 @@ basic.forever(function () {
         game.addScore(1)
         enemigo_2.delete()
         enemigo_3()
+    }
+})
+basic.forever(function () {
+    for (let index = 0; index < 400; index++) {
+        music.playMelody("A F E F D G E F ", 120)
+        music.playMelody("A G F G E A F G ", 120)
+        music.playMelody("A F E F D G E F ", 120)
+        music.playMelody("A F E F D G E F ", 120)
+        music.playMelody("A G F G E A F G ", 120)
+        music.playMelody("A F E F D G E F ", 120)
+    }
+})
+basic.forever(function () {
+    if (input.buttonIsPressed(Button.AB)) {
+        game.pause()
+        music.setVolume(0)
+    } else if (false) {
+    	
+    } else {
+        game.resume()
+        music.setVolume(255)
     }
 })
 basic.forever(function () {
